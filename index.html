@@ -120,13 +120,6 @@ $(document).ready(function() {
               $("#error").text("Put in ENTER box first");
             }
             break;  
-          case "delete":
-            if (ischar) {
-              console.log("can delete");
-              $("#error").text("");
-              $(textarea).val("");
-            } 
-            break;  
         }
       } else {
         $("#error").text("Not Recognized");
