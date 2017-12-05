@@ -37,7 +37,7 @@ $(document).ready(function() {
     };
   }
 
-  var istext = false;
+  var ischar = false;
   var textbox = null;
 
   $("#commandbutton").click(function() {
@@ -45,10 +45,7 @@ $(document).ready(function() {
 
     recognition.onresult = function(event) {
       console.log("onresult");
-
       var current = event.resultIndex;
-
-      // Get a transcript of what was said.
       var transcript = event.results[current][0].transcript;
       var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
 
@@ -81,15 +78,12 @@ $(document).ready(function() {
             var clicked = false;
             // what do we do if click?
             console.log("handling click")
-
             //console.log($("*:contains('" + arg + "')"));
-
-            var stringpieces = arg.split(/\s/);
+            var clickthis = arg.split(/\s/);
 
             $("a,input,button").each(function() {
               var element = $(this);
-
-              if (element.attr('id') == stringpieces[0]) {
+              if (element.attr('id') == clickthis[0]) {
                 clicked = true;
                 $("#error").text("");
                 simulateClick(this);
@@ -97,13 +91,13 @@ $(document).ready(function() {
                 if($(this)[0].tagName == "INPUT") {
                   if ($(this).is("input[type='text'],textarea")) {
                     console.log("is input box");
-                    istext = true;
+                    ischar = true;
                     textbox = this;
                   } else {
-                    istext = false;
+                    ischar = false;
                   }
                 } else {
-                  istext = false;
+                  ischar = false;
                 }
               }
               
@@ -112,7 +106,6 @@ $(document).ready(function() {
             break;
           case "scroll":
             console.log("handling scroll", arg);
-
             if (arg == "up") {
               $('html, body').animate({
                 scrollTop: $(document).scrollTop() - 200
@@ -125,18 +118,17 @@ $(document).ready(function() {
             break;
           case "enter":
             console.log("handling enter")
-
-            if (istext) {
+            if (ischar) {
               console.log("can enter text");
               $("#error").text("");
               $(textbox).val(arg);
             } else {
               console.log("can't enter text");
-              $("#error").text("Please select the ENTER box first");
+              $("#error").text("Click in ENTER box first");
             }
             break;  
           case "delete":
-            if (istext) {
+            if (ischar) {
               console.log("can delete");
               $("#error").text("");
               $(textbox).val("");
