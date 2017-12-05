@@ -33,7 +33,7 @@ $(document).ready(function() {
     console.log("onerror")
     alert(event.error);
     if(event.error == 'no-speech') {
-      console.log('No speech was detected. Try again.');  
+      console.log('Speech Error');  
     };
   }
   function simulateClick(element) {
@@ -47,7 +47,7 @@ $(document).ready(function() {
   };
 
   var ischar = false;
-  var textbox = null;
+  var textarea = null;
 
   $("#commandbutton").click(function() {
     recognition.start();
@@ -101,7 +101,7 @@ $(document).ready(function() {
                   if ($(this).is("input[type='text'],textarea")) {
                     console.log("is input box");
                     ischar = true;
-                    textbox = this;
+                    textarea = this;
                   } else {
                     ischar = false;
                   }
@@ -117,11 +117,11 @@ $(document).ready(function() {
             console.log("handling scroll", arg);
             if (arg == "up") {
               $('html, body').animate({
-                scrollTop: $(document).scrollTop() - 200
+                scrollTop: $(document).scrollTop() - 300
               }, 1000);
             } else if (arg == "down") {
               $('html, body').animate({
-                scrollTop: $(document).scrollTop() + 200
+                scrollTop: $(document).scrollTop() + 300
               }, 1000);
             } 
             break;
@@ -130,7 +130,7 @@ $(document).ready(function() {
             if (ischar) {
               console.log("can enter text");
               $("#error").text("");
-              $(textbox).val(arg);
+              $(textarea).val(arg);
             } else {
               console.log("can't enter text");
               $("#error").text("Put in ENTER box first");
@@ -140,13 +140,13 @@ $(document).ready(function() {
             if (ischar) {
               console.log("can delete");
               $("#error").text("");
-              $(textbox).val("");
+              $(textarea).val("");
             } 
             break;  
         }
       } else {
-        $("#error").text("Can't recognize the command");
-        console.log("sorry, that is not a recognized command");
+        $("#error").text("Not Recognized");
+        console.log("Not Recognized");
       }
 
     };
