@@ -23,7 +23,10 @@ $(document).ready(function() {
     $('.app').hide();
   }
   var command = "";
-
+  recognition.onstart = function() { 
+    console.log("onstart");
+    // console.log('Voice recognition activated. Try speaking into the microphone.');
+  }
 
   recognition.onerror = function(event) {
     console.log("onerror")
