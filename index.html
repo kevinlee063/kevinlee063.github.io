@@ -43,10 +43,7 @@ $(document).ready(function() {
       clickEvent.initEvent(name, true, true);
       elt.dispatchEvent(clickEvent);
     };
-    dispatchEvent(element, 'mouseover');
-    dispatchEvent(element, 'mousedown');
     dispatchEvent(element, 'click');
-    dispatchEvent(element, 'mouseup');
   };
 
   var ischar = false;
@@ -136,7 +133,7 @@ $(document).ready(function() {
               $(textbox).val(arg);
             } else {
               console.log("can't enter text");
-              $("#error").text("Click in ENTER box first");
+              $("#error").text("Put in ENTER box first");
             }
             break;  
           case "delete":
@@ -156,8 +153,8 @@ $(document).ready(function() {
 
 
   })
-  $("#cat").click(function() {
-    $("#cattext").text($("#ENTER").val()+ " was entered");
+  $("#enter").click(function() {
+    $("#entertext").text($("#ENTER").val()+ " was entered");
   })
 });
 </script>
@@ -175,7 +172,7 @@ $(document).ready(function() {
   ENTER: <input type="text" id="ENTER">
 
   <p>
-  <input type="button" id="cat" value="cat"><p id="cattext"></p><br>
+  <input type="button" id="enter" value="enter"><p id="entertext"></p><br>
   <a href="https://www.google.com" id="Google" target="_blank">Google</a><br>
   <a href="https://cmu.edu" id="CMU" target="_blank">CMU</a><br><br><br><br>
   <img src="yes.jpg">
