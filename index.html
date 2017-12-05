@@ -9,23 +9,17 @@
 var potentialcommand = "";
 
 $(document).ready(function() {
-  try {
-    var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    var recognition = new SpeechRecognition();
-    console.log("recognition exists");
-  }
-  var command = "";
-
-
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var recognition = new SpeechRecognition();
+@@ -22,7 +21,6 @@ $(document).ready(function() {
   recognition.onstart = function() { 
     console.log("onstart");
-    // console.log('Voice recognition activated. Try speaking into the microphone.');
   }
 
   recognition.onerror = function(event) {
     console.log("onerror")
     alert(event.error);
-    if(event.error == 'no-speech') {
+@@ -30,78 +28,47 @@ $(document).ready(function() {
       console.log('No speech was detected. Try again.');  
     };
   }
@@ -44,6 +38,7 @@ $(document).ready(function() {
     dispatchEvent(element, 'mouseup');
   };
 
+ 
   var istext = false;
   var textbox = null;
 
@@ -104,17 +99,14 @@ $(document).ready(function() {
                 if($(this)[0].tagName == "INPUT") {
                   if ($(this).is("input[type='text'],textarea")) {
                     console.log("is input box");
-                    istext = true;
-                    textbox = this;
-                  } else {
-                    istext = false;
-                  }
-                } else {
-                  istext = false;
-                }
+@@ -116,15 +83,12 @@ $(document).ready(function() {
               }
               
             })
+
+            if (!clicked) {
+              $("#error").text("Can't recognize the command");
+            }
 
             break;
           case "scroll":
@@ -122,13 +114,8 @@ $(document).ready(function() {
 
             if (arg == "up") {
               $('html, body').animate({
-                scrollTop: $(document).scrollTop() - 200
-              }, 1000);
-            } else if (arg == "down") {
-              $('html, body').animate({
-                scrollTop: $(document).scrollTop() + 200
-              }, 1000);
-            } 
+                scrollTop: $(document).scrollTop() - 250
+@@ -137,7 +101,6 @@ $(document).ready(function() {
             break;
           case "enter":
             console.log("handling enter")
@@ -136,21 +123,7 @@ $(document).ready(function() {
             if (istext) {
               console.log("can enter text");
               $("#error").text("");
-              $(textbox).val(arg);
-            } else {
-              console.log("can't enter text");
-              $("#error").text("Please select the ENTER box first");
-            }
-            break;  
-          case "delete":
-            if (istext) {
-              console.log("can delete");
-              $("#error").text("");
-              $(textbox).val("");
-            } 
-            break;  
-        }
-      } else {
+@@ -162,12 +125,8 @@ $(document).ready(function() {
         $("#error").text("Can't recognize the command");
         console.log("sorry, that is not a recognized command");
       }
@@ -159,10 +132,10 @@ $(document).ready(function() {
 
 
   })
-  $("#cat").click(function() {
-    $("#cattext").text($("#ENTER").val()+ "was entered");
-  })
-});
+
+  $("#enter").click(function() {
+    $("#entertext").text($("#ENTER").val()+ " was entered");
+  });
 </script>
 
 </head>
