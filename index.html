@@ -4,10 +4,8 @@
 <meta charset="utf-8">
 <title>Kevin Lee</title> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
 <script>
 var spoke = "";
-
 $(document).ready(function() {
   try {
     var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -24,7 +22,6 @@ $(document).ready(function() {
     console.log("onstart");
     // console.log('Voice recognition activated. Try speaking into the microphone.');
   }
-
   recognition.onerror = function(event) {
     console.log("onerror")
     alert(event.error);
@@ -63,18 +60,13 @@ $(document).ready(function() {
       } 
       console.log("spoke");
       console.log(spoke);
-
       var re = /^(click|scroll|enter|delete)\s(.*)/i;
       var result = re.exec(spoke);
-
       console.log("result", result);
-
       if (result) {
         var verb = result[1];
         var arg = result[2]
-
         console.log("verb: " + verb + ", args: " + arg)
-
         switch(verb) {
           case "click":
             var clicked = false;
@@ -104,7 +96,6 @@ $(document).ready(function() {
               }
               
             })
-
             break;
           case "scroll":
             console.log("handling scroll", arg);
@@ -141,17 +132,13 @@ $(document).ready(function() {
         $("#error").text("Not Recognized");
         console.log("Not Recognized");
       }
-
     };
-
-
   })
   $("#enter").click(function() {
     $("#entertext").text($("#ENTER").val()+ " was entered");
   })
 });
 </script>
-
 </head>
 <body>
   <h1>Kevin Lee</h1>
@@ -163,7 +150,6 @@ $(document).ready(function() {
     <input type="button" value="SPEAK" id="commandbutton">
   </p>
   TEXT: <input type="text" id="ENTER">
-
   <p>
   <input type="button" id="enter" value="enter"><p id="entertext"></p><br>
   <a href="https://www.google.com" id="Google" target="_blank">Google</a><br>
