@@ -7,7 +7,6 @@
 
 <script>
 var potentialcommand = "";
-
 $(document).ready(function() {
   var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   var recognition = new SpeechRecognition();
@@ -22,7 +21,6 @@ $(document).ready(function() {
   recognition.onstart = function() { 
     console.log("onstart");
   }
-
   recognition.onerror = function(event) {
     console.log("onerror")
     alert(event.error);
@@ -30,78 +28,47 @@ $(document).ready(function() {
       console.log('No speech was detected. Try again.');  
     };
   }
-
-  function simulateClick(element) {
-    if (!element) return;
-    var dispatchEvent = function (elt, name) {
-      var clickEvent = document.createEvent('MouseEvents');
-      clickEvent.initEvent(name, true, true);
-      elt.dispatchEvent(clickEvent);
-    };
-
-    dispatchEvent(element, 'mouseover');
-    dispatchEvent(element, 'mousedown');
-    dispatchEvent(element, 'click');
-    dispatchEvent(element, 'mouseup');
-  };
-
+ 
   var istext = false;
   var textbox = null;
-
   $("#commandbutton").click(function() {
     recognition.start();
-
     recognition.onresult = function(event) {
       console.log("onresult");
-
       var current = event.resultIndex;
-
       // Get a transcript of what was said.
       var transcript = event.results[current][0].transcript;
       var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
-
       if(!mobileRepeatBug) {
         command += transcript;
       }
       console.log(command);
-
       if (command != "") {
         potentialcommand = command;
         $("#command").text(potentialcommand);
       } 
-
       console.log("potentialcommand");
       console.log(potentialcommand);
-
       var re = /^(click|scroll|enter|delete)\s(.*)/i;
       var result = re.exec(potentialcommand);
-
       console.log("result", result);
-
       if (result) {
         var verb = result[1];
         var arg = result[2]
-
         console.log("verb: " + verb + ", args: " + arg)
-
         switch(verb) {
           case "click":
             var clicked = false;
             // what do we do if click?
             console.log("handling click")
-
             //console.log($("*:contains('" + arg + "')"));
-
             var stringpieces = arg.split(/\s/);
-
             $("a,input,button").each(function() {
               var element = $(this);
-
               if (element.attr('id') == stringpieces[0]) {
                 clicked = true;
                 $("#error").text("");
                 simulateClick(this);
-
                 if($(this)[0].tagName == "INPUT") {
                   if ($(this).is("input[type='text'],textarea")) {
                     console.log("is input box");
@@ -116,15 +83,12 @@ $(document).ready(function() {
               }
               
             })
-
             if (!clicked) {
               $("#error").text("Can't recognize the command");
             }
-
             break;
           case "scroll":
             console.log("handling scroll", arg);
-
             if (arg == "up") {
               $('html, body').animate({
                 scrollTop: $(document).scrollTop() - 250
@@ -137,7 +101,6 @@ $(document).ready(function() {
             break;
           case "enter":
             console.log("handling enter")
-
             if (istext) {
               console.log("can enter text");
               $("#error").text("");
@@ -162,12 +125,8 @@ $(document).ready(function() {
         $("#error").text("Can't recognize the command");
         console.log("sorry, that is not a recognized command");
       }
-
     };
-
-
   })
-
   $("#enter").click(function() {
     $("#entertext").text($("#ENTER").val()+ " was entered");
   })
