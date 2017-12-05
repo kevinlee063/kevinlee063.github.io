@@ -37,20 +37,6 @@ $(document).ready(function() {
     };
   }
 
-  function simulateClick(element) {
-    if (!element) return;
-    var dispatchEvent = function (elt, name) {
-      var clickEvent = document.createEvent('MouseEvents');
-      clickEvent.initEvent(name, true, true);
-      elt.dispatchEvent(clickEvent);
-    };
-
-    dispatchEvent(element, 'mouseover');
-    dispatchEvent(element, 'mousedown');
-    dispatchEvent(element, 'click');
-    dispatchEvent(element, 'mouseup');
-  };
-
   var istext = false;
   var textbox = null;
 
@@ -175,6 +161,7 @@ $(document).ready(function() {
 </head>
 <body>
   <h1>Kevin Lee</h1>
+  <p>Text below</p>
   <p id="command"></p>
   <p id="error" style="color:red;"></p>
   <br><br>
