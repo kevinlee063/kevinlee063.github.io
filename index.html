@@ -28,7 +28,18 @@ $(document).ready(function() {
       console.log('No speech was detected. Try again.');  
     };
   }
- 
+ function simulateClick(element) {
+    if (!element) return;
+    var dispatchEvent = function (elt, name) {
+      var clickEvent = document.createEvent('MouseEvents');
+      clickEvent.initEvent(name, true, true);
+      elt.dispatchEvent(clickEvent);
+    };
+    dispatchEvent(element, 'mouseover');
+    dispatchEvent(element, 'mousedown');
+    dispatchEvent(element, 'click');
+    dispatchEvent(element, 'mouseup');
+  };
   var istext = false;
   var textbox = null;
   $("#commandbutton").click(function() {
