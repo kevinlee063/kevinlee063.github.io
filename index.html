@@ -9,14 +9,10 @@
 var potentialcommand = "";
 
 $(document).ready(function() {
-  try {
-    var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    var recognition = new SpeechRecognition();
-    console.log("recognition exists");
-  }
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var recognition = new SpeechRecognition();
   catch(e) {
     console.log("recognition doesn't exist");
-    // alert("Voice recognition is not supported");
     alert(e);
     console.error(e);
     $('.no-browser-support').show();
@@ -25,7 +21,6 @@ $(document).ready(function() {
   var command = "";
   recognition.onstart = function() { 
     console.log("onstart");
-    // console.log('Voice recognition activated. Try speaking into the microphone.');
   }
 
   recognition.onerror = function(event) {
