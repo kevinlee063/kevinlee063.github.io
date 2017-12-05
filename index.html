@@ -14,13 +14,16 @@ $(document).ready(function() {
     var recognition = new SpeechRecognition();
     console.log("recognition exists");
   }
+  catch(e) {
+    console.log("recognition doesn't exist");
+    // alert("Voice recognition is not supported");
+    alert(e);
+    console.error(e);
+    $('.no-browser-support').show();
+    $('.app').hide();
+  }
   var command = "";
 
-
-  recognition.onstart = function() { 
-    console.log("onstart");
-    // console.log('Voice recognition activated. Try speaking into the microphone.');
-  }
 
   recognition.onerror = function(event) {
     console.log("onerror")
