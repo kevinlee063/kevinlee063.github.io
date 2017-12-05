@@ -12,18 +12,14 @@ $(document).ready(function() {
   try {
     var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     var recognition = new SpeechRecognition();
-    console.log("recognition exists");
+    console.log("Isrecognition");
   }
   catch(e) {
-    console.log("recognition doesn't exist");
-    // alert("Voice recognition is not supported");
+    console.log("Isnotrecognition");
     alert(e);
     console.error(e);
-
   }
   var command = "";
-
-
   recognition.onstart = function() { 
     console.log("onstart");
     // console.log('Voice recognition activated. Try speaking into the microphone.');
@@ -36,7 +32,7 @@ $(document).ready(function() {
       console.log('Speech Error');  
     };
   }
-  function simulateClick(element) {
+  function Click(element) {
     if (!element) return;
     var dispatchEvent = function (elt, name) {
       var clickEvent = document.createEvent('MouseEvents');
@@ -45,13 +41,11 @@ $(document).ready(function() {
     };
     dispatchEvent(element, 'click');
   };
-
   var ischar = false;
   var textarea = null;
 
   $("#commandbutton").click(function() {
     recognition.start();
-
     recognition.onresult = function(event) {
       console.log("onresult");
       var current = event.resultIndex;
@@ -67,7 +61,6 @@ $(document).ready(function() {
         spoke = command;
         $("#command").text(spoke);
       } 
-
       console.log("spoke");
       console.log(spoke);
 
@@ -95,7 +88,7 @@ $(document).ready(function() {
               if (element.attr('id') == clickthis[0]) {
                 clicked = true;
                 $("#error").text("");
-                simulateClick(this);
+                Click(this);
 
                 if($(this)[0].tagName == "INPUT") {
                   if ($(this).is("input[type='text'],textarea")) {
@@ -115,11 +108,11 @@ $(document).ready(function() {
             break;
           case "scroll":
             console.log("handling scroll", arg);
-            if (arg == "up") {
+            if (result[1] == "up") {
               $('html, body').animate({
                 scrollTop: $(document).scrollTop() - 300
               }, 1000);
-            } else if (arg == "down") {
+            } else if (result[1] == "down") {
               $('html, body').animate({
                 scrollTop: $(document).scrollTop() + 300
               }, 1000);
