@@ -131,17 +131,15 @@ $(document).ready(function() {
             console.log("handling scroll", arg);
 
             if (arg == "up") {
-              $("#error").text("");
               $('html, body').animate({
                 scrollTop: $(document).scrollTop() - 250
               }, 1000);
             } else if (arg == "down") {
-              $("#error").text("");
               $('html, body').animate({
                 scrollTop: $(document).scrollTop() + 250
               }, 1000);
             } else {
-              $("#error").text("Can't recognize the command");
+              $("#error").text("Not a command");
             }
 
             break;
